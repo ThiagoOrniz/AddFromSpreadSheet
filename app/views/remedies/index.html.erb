@@ -1,8 +1,5 @@
 <h4>Importar produtos</h4>
 
-
-
-
 <%= form_tag import_remedies_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Importar",:class=>"btn btn-link" %>
