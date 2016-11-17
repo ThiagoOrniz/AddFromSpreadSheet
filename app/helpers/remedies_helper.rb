@@ -1,0 +1,2 @@
+module RemediesHelper
+end

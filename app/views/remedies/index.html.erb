@@ -1,0 +1,43 @@
+<h4>Importar produtos</h4>
+
+
+
+
+<%= form_tag import_remedies_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Importar",:class=>"btn btn-link" %>
+<% end %>
+
+<hr>
+
+<h5>Produtos</h5>
+
+
+ <table class = "table">
+
+ <% @remedies.each do |remedy| %>
+      <tr>
+        <td class="name" ><%=remedy.name %></td>
+        <td class="lab_name" ><%=remedy.lab_name %></td>
+        <td class="lab_cod" ><%=remedy.lab_cod %></td>
+        <td class="lab_price" ><%=remedy.lab_price %></td>
+        <td class= "max_price" ><%=remedy.max_price %></td>
+        <td class="code" ><%=remedy.code %></td>
+        <td class="generic" ><%=remedy.generic %></td>
+        <td class="active_principle" ><%=remedy.active_principle %></td>
+
+ 		<td><table class = "table">
+
+         <% remedy.presentations.each do |presentation| %>
+               <tr>
+               		<td class="presentation"> <%= presentation.presentation%></td>
+               </tr>
+         <% end %>
+         </table></td>
+
+      </tr>
+
+  <% end %>
+
+</table>
+
