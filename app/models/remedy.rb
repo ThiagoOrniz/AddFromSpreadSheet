@@ -47,6 +47,67 @@ class Remedy < ActiveRecord::Base
       end
     end
   end
+
+  def self.format_all
+
+    remedies = Remedy.all
+
+    remedies_map = Hash.new
+
+    remedies.each do |remedy| 
+      
+      details_remedy_map = Hash.new
+      presentations_map = Hash.new
+
+
+      remedy.presentations.each do |presentation|
+        presentations_map[presentation.presentation.gsub("/"," ").gsub(".","")] = true
+      end #end of presentations
+
+      details_remedy_map = {
+        "remedy_name" => remedy.name.gsub(".","").gsub("/",""),
+        "lab_name" => remedy.lab_name,
+        "lab_cod" => ((remedy.lab_cod.to_i).to_s),
+        "lab_price" => remedy.lab_price,
+        "bar_code" => remedy.code,
+        "generic" => remedy.generic,
+        "active_principle" =>remedy.active_principle,
+        "max_price" => remedy.max_price,
+        "presentations" => presentations_map
+      } #endo fo map
+
+
+      # get hashmap of the hash giving a key
+      remedies_hash_map = remedies_map[remedy.name.gsub(".","").gsub("/","")]
+
+      if(remedies_hash_map)
+        remedies_hash_map[remedy.name.gsub(".","").gsub("/","")+""+((remedy.lab_cod.to_i).to_s)] = details_remedy_map
+      
+      else
+        remedies_hash_map = Hash.new
+        remedies_hash_map[remedy.name.gsub(".","").gsub("/","")+""+((remedy.lab_cod.to_i).to_s)] = details_remedy_map
+      end
+
+      remedies_map[remedy.name.gsub(".","").gsub("/","")] = remedies_hash_map
+   
+    end #end of go through all remedies
+
+    remedies_map
+  end #end of method turn into map
+
+
+  def self.get_all_remedy_names
+
+    remedies = Remedy.all
+    remedies_map = Hash.new
+
+    remedies.each do |remedy|
+      remedies_map[remedy.name.gsub(".","").gsub("/","")] = true
+    end
+    remedies_map
+  
+  end
+
 end
 
  

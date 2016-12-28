@@ -7,12 +7,17 @@
 
 <hr>
 
+<h4>Exportar para os aplicativos</h4>
+<button type="button" class="btn btn-primary" onclick="firebaseExport()" id="firebase_export">Exportar</button>
+
 <h5>Produtos</h5>
 
 
  <table class = "table">
 
  <% @remedies.each do |remedy| %>
+
+
       <tr>
         <td class="name" ><%=remedy.name %></td>
         <td class="lab_name" ><%=remedy.lab_name %></td>
@@ -23,7 +28,7 @@
         <td class="generic" ><%=remedy.generic %></td>
         <td class="active_principle" ><%=remedy.active_principle %></td>
 
- 		<td><table class = "table">
+ 		   <td><table class = "table">
 
          <% remedy.presentations.each do |presentation| %>
                <tr>
@@ -37,4 +42,6 @@
   <% end %>
 
 </table>
+
+
 
