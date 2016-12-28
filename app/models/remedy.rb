@@ -48,6 +48,13 @@ class Remedy < ActiveRecord::Base
     end
   end
 
+# this method is used to format an active record into a hashmap 
+# this hashmap will be sent to a firebase account
+# firebase doesn't accept "." or "/"
+# format will be:
+# name/ name+lab_code / details
+#     / name+lab_code / details
+# name/ name+lab_code / details
   def self.format_all
 
     remedies = Remedy.all
@@ -61,6 +68,7 @@ class Remedy < ActiveRecord::Base
 
 
       remedy.presentations.each do |presentation|
+        # firebase doesn't accept / or . so we replace it
         presentations_map[presentation.presentation.gsub("/"," ").gsub(".","")] = true
       end #end of presentations
 
